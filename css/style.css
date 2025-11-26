@@ -20,6 +20,15 @@
     --font-body: 'Inter', sans-serif;
 }
 
+[data-theme="light"] {
+    --color-bg-main: #f5f5f5;
+    --color-bg-card: #ffffff;
+    --color-text-main: #1a1a1a;
+    --color-text-muted: #555555;
+    --color-primary: #B8A078;
+    --color-accent: #000000;
+}
+
 /* Global Reset & Base Styles */
 * {
     margin: 0;
@@ -141,6 +150,11 @@ h4 {
     /* Ensure logo is visible on dark bg if it's black */
 }
 
+.nav {
+    margin-left: auto;
+    margin-right: var(--spacing-md);
+}
+
 .nav__list {
     display: flex;
     gap: var(--spacing-lg);
@@ -174,6 +188,55 @@ h4 {
 .nav__link:hover::after,
 .nav__link.active::after {
     width: 100%;
+}
+
+/* Theme Toggle Switch */
+.theme-toggle {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    width: 60px;
+    height: 32px;
+}
+
+[data-theme="light"] .theme-toggle {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.toggle-icon {
+    width: 18px;
+    height: 18px;
+    fill: var(--color-text-main);
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    position: absolute;
+}
+
+.toggle-icon.sun {
+    right: 150%;
+}
+
+.toggle-icon.moon {
+    left: 7px;
+}
+
+[data-theme="light"] .toggle-icon.sun {
+    right: 7px;
+    transform: rotate(180deg);
+}
+
+[data-theme="light"] .toggle-icon.moon {
+    left: 150%;
+    transform: rotate(180deg);
 }
 
 /* Hero Section */
@@ -513,6 +576,11 @@ section {
 @media (max-width: 768px) {
     .mobile-toggle {
         display: block;
+    }
+
+    .theme-toggle {
+        margin-left: auto;
+        margin-right: var(--spacing-sm);
     }
 
     .nav {
