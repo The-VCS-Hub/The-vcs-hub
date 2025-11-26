@@ -27,11 +27,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // Element enters viewport
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Only animate once
+                entry.target.classList.remove('scrolled-past');
+            } else {
+                // Element leaves viewport
+                if (entry.boundingClientRect.top < 0) {
+                    // Scrolled past (leaves to the top)
+                    entry.target.classList.add('scrolled-past');
+                    entry.target.classList.remove('visible');
+                } else {
+                    // Below viewport (waiting to enter)
+                    // Optional: remove visible if you want it to fade out when scrolling back up
+                    // entry.target.classList.remove('visible'); 
+                }
             }
         });
-    }, observerOptions);
+    }, {
+        threshold: 0.15, // Trigger slightly later
+        rootMargin: "0px"
+    });
 
     const revealElements = document.querySelectorAll('.reveal');
     revealElements.forEach(el => observer.observe(el));
