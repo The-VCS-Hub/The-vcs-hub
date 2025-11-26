@@ -56,4 +56,35 @@ document.addEventListener('DOMContentLoaded', () => {
             mobileToggle.classList.toggle('active'); // Add animation class if needed
         });
     }
+    // Stats Counter Animation
+    const statsSection = document.querySelector('#stats');
+    const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+    let started = false;
+
+    if (statsSection) {
+        const statsObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !started) {
+                statNumbers.forEach(stat => {
+                    const target = +stat.getAttribute('data-target');
+                    const suffix = stat.getAttribute('data-suffix') || '';
+                    const duration = 2000; // 2 seconds
+                    const increment = target / (duration / 16); // 60fps
+
+                    let current = 0;
+                    const updateCount = () => {
+                        current += increment;
+                        if (current < target) {
+                            stat.innerText = Math.ceil(current) + suffix;
+                            requestAnimationFrame(updateCount);
+                        } else {
+                            stat.innerText = target + suffix;
+                        }
+                    };
+                    updateCount();
+                });
+                started = true;
+            }
+        });
+        statsObserver.observe(statsSection);
+    }
 });
