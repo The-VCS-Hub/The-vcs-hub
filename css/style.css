@@ -516,28 +516,181 @@ section {
     }
 
     .nav {
-        position: fixed;
-        top: 0;
-        right: -100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
         width: 100%;
-        height: 100vh;
-        background: var(--color-bg-main);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: right 0.3s ease;
+        height: auto;
+        background: rgba(5, 5, 5, 0.95);
+        backdrop-filter: blur(10px);
+        display: none;
+        padding: var(--spacing-md) 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transition: none;
     }
 
     .nav.active {
-        right: 0;
+        display: block;
+        animation: slideDown 0.3s ease forwards;
     }
 
     .nav__list {
         flex-direction: column;
         text-align: center;
+        gap: var(--spacing-sm);
+    }
+
+    .hero {
+        min-height: 100vh;
+        height: auto;
+        padding: var(--spacing-xl) 0;
     }
 
     .hero__title {
-        font-size: 3.5rem;
+        font-size: clamp(2.5rem, 10vw, 4rem);
     }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Portfolio Section */
+.portfolio-scroller {
+    display: flex;
+    overflow-x: auto;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-md) var(--spacing-lg);
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE/Edge */
+}
+
+.portfolio-scroller::-webkit-scrollbar {
+    display: none;
+}
+
+.portfolio-item {
+    flex: 0 0 80vw;
+    /* Mobile width */
+    scroll-snap-align: center;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+@media (min-width: 768px) {
+    .portfolio-item {
+        flex: 0 0 400px;
+        /* Desktop width */
+    }
+}
+
+.portfolio-item:hover {
+    transform: scale(1.02);
+    border-color: var(--color-primary);
+}
+
+.portfolio-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.portfolio-item:hover .portfolio-img {
+    transform: scale(1.1);
+}
+
+.portfolio-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--spacing-md);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.portfolio-item:hover .portfolio-overlay {
+    transform: translateY(0);
+}
+
+/* Testimonials Section */
+.testimonials-scroller {
+    display: flex;
+    overflow-x: auto;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-md) var(--spacing-lg);
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.testimonials-scroller::-webkit-scrollbar {
+    display: none;
+}
+
+.testimonial-card {
+    flex: 0 0 85vw;
+    scroll-snap-align: center;
+    background: var(--color-bg-card);
+    padding: var(--spacing-lg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    position: relative;
+}
+
+@media (min-width: 768px) {
+    .testimonial-card {
+        flex: 0 0 400px;
+    }
+}
+
+.testimonial-quote {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-muted);
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.author-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--color-bg-main);
+}
+
+.author-info h5 {
+    color: var(--color-text-main);
+    margin-bottom: 0.2rem;
+}
+
+.author-info span {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
 }
