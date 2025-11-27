@@ -68,7 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mobileToggle) {
         mobileToggle.addEventListener('click', () => {
             nav.classList.toggle('active');
-            mobileToggle.classList.toggle('active'); // Add animation class if needed
+            mobileToggle.classList.toggle('active');
+            header.classList.toggle('menu-open');
         });
     }
     // Stats Counter Animation
