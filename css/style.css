@@ -1393,10 +1393,358 @@ section {
 }
 
 .price-discount {
+
+    .nav__list {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-md);
+    }
+
+    .nav__link {
+        font-size: 1.5rem;
+    }
+
+    .theme-toggle {
+        margin: var(--spacing-md) auto 0;
+    }
+}
+
+/* Pricing Section */
+.pricing-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--spacing-lg);
+    color: var(--color-text-muted);
+}
+
+.pricing-discounts {
+    margin-top: var(--spacing-sm);
+    display: inline-block;
+    background: rgba(212, 197, 168, 0.05);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 8px;
+    border: 1px solid rgba(212, 197, 168, 0.2);
+}
+
+.pricing-discounts li {
+    margin-bottom: 0.2rem;
+    font-size: 0.9rem;
+}
+
+.pricing-discounts strong {
+    color: var(--color-primary);
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.pricing-card {
+    background: var(--color-bg-card);
+    padding: var(--spacing-lg) var(--spacing-md);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.5s ease, border-color 0.3s ease;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--color-primary);
+}
+
+.pricing-card--featured {
+    border-color: var(--color-primary);
+    background: rgba(212, 197, 168, 0.03);
+}
+
+.pricing-card__title {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-main);
+    text-align: center;
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pricing-list {
+    flex-grow: 1;
+}
+
+.pricing-item {
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+}
+
+.pricing-item:last-child {
+    margin-bottom: 0;
+}
+
+.service-name {
+    font-weight: 600;
+    color: var(--color-text-main);
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+}
+
+.service-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+.price-tag {
+    color: var(--color-primary);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* Pricing Controls */
+.pricing-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.toggle-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.toggle-label {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.toggle-switch {
+    display: flex;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    padding: 6px 16px;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.toggle-btn.active {
+    background: var(--color-primary);
+    color: #000;
+    font-weight: 600;
+}
+
+.toggle-btn:hover:not(.active) {
+    color: var(--color-text-main);
+}
+
+/* Pricing Grid Updates */
+.price-container {
+    margin-top: 0.5rem;
+}
+
+.price-val {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    transition: opacity 0.3s ease;
+}
+
+.price-val.hidden {
+    display: none;
+}
+
+.price-discount {
+    /* Legacy class, can be removed or kept for reference */
+    display: none;
+}
+
+.price-ngn {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    font-weight: 400;
+}
+
+.price-discount {
     display: block;
     font-size: 0.9rem;
     color: var(--color-primary);
     margin-top: 0.2rem;
     font-weight: 500;
     opacity: 0.9;
+}
+
+/* About Page Updates */
+.about-intro {
+    max-width: 800px;
+    margin: 0 auto var(--spacing-xl);
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+}
+
+.section__heading {
+    font-size: 1.8rem;
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+    color: var(--color-text-main);
+}
+
+/* Vision & Mission */
+.vision-mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.vm-card {
+    background: var(--color-bg-card);
+    padding: var(--spacing-lg);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+}
+
+.vm-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-primary);
+}
+
+.vm-card p {
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+/* Pillars */
+.pillars-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.pillar-card {
+    background: rgba(255, 255, 255, 0.02);
+    padding: var(--spacing-md);
+    border-radius: 8px;
+    border-left: 2px solid var(--color-primary);
+}
+
+.pillar-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-main);
+}
+
+.pillar-card p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+/* Candidates */
+.candidates-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.candidates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.candidate-item {
+    background: var(--color-bg-card);
+    padding: var(--spacing-md);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.candidate-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+}
+
+.candidate-item h4 {
+    color: var(--color-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.candidate-item p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+/* Values */
+.values-section {
+    margin-bottom: var(--spacing-xl);
+    background: rgba(255, 255, 255, 0.02);
+    padding: var(--spacing-lg);
+    border-radius: 12px;
+}
+
+.values-list {
+    list-style: none;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.values-list li {
+    margin-bottom: var(--spacing-md);
+    padding-left: var(--spacing-md);
+    border-left: 2px solid var(--color-primary);
+    color: var(--color-text-muted);
+}
+
+.values-list strong {
+    color: var(--color-text-main);
+    margin-right: var(--spacing-sm);
+}
+
+/* Beliefs */
+.beliefs-section {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.beliefs-content p {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-main);
+    font-style: italic;
+}
+
+.beliefs-content p:last-child {
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-top: var(--spacing-md);
+    font-style: normal;
 }
