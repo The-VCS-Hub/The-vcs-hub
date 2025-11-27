@@ -119,4 +119,54 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('theme', newTheme);
         });
     }
+    // Services Page Toggles
+    const currencyToggle = document.getElementById('currency-toggle');
+    const rateToggle = document.getElementById('rate-toggle');
+
+    if (currencyToggle && rateToggle) {
+        let currentCurrency = 'usd';
+        let currentRate = 'standard';
+
+        function updatePrices() {
+            // Hide all prices first
+            document.querySelectorAll('.price-val').forEach(el => {
+                el.classList.add('hidden');
+            });
+
+            // Show relevant prices
+            const selector = `.price-${currentCurrency}.price-${currentRate === 'standard' ? 'std' : 'biz'}`;
+            document.querySelectorAll(selector).forEach(el => {
+                el.classList.remove('hidden');
+            });
+        }
+
+        // Currency Toggle
+        currencyToggle.querySelectorAll('.toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                currencyToggle.querySelector('.active').classList.remove('active');
+                btn.classList.add('active');
+
+                // Update state and UI
+                currentCurrency = btn.dataset.value;
+                updatePrices();
+            });
+        });
+
+        // Rate Toggle
+        rateToggle.querySelectorAll('.toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                rateToggle.querySelector('.active').classList.remove('active');
+                btn.classList.add('active');
+
+                // Update state and UI
+                currentRate = btn.dataset.value;
+                updatePrices();
+            });
+        });
+
+        // Initialize
+        updatePrices();
+    }
 });

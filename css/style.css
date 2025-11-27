@@ -1312,6 +1312,80 @@ section {
     font-size: 1.1rem;
 }
 
+/* Pricing Controls */
+.pricing-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.toggle-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.toggle-label {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.toggle-switch {
+    display: flex;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    padding: 6px 16px;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.toggle-btn.active {
+    background: var(--color-primary);
+    color: #000;
+    font-weight: 600;
+}
+
+.toggle-btn:hover:not(.active) {
+    color: var(--color-text-main);
+}
+
+/* Pricing Grid Updates */
+.price-container {
+    margin-top: 0.5rem;
+}
+
+.price-val {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    transition: opacity 0.3s ease;
+}
+
+.price-val.hidden {
+    display: none;
+}
+
+.price-discount {
+    /* Legacy class, can be removed or kept for reference */
+    display: none;
+}
+
 .price-ngn {
     font-size: 0.9rem;
     opacity: 0.8;
