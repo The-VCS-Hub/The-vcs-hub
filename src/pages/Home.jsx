@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import ScrollReveal from '../components/ScrollReveal';
 import Stats from '../components/Stats';
 
-const TypingText = ({ texts, typingSpeed = 50, deletingSpeed = 30, pauseDuration = 2000 }) => {
+const TypingText = ({ texts, typingSpeed = 20, deletingSpeed = 30, pauseDuration = 2000 }) => {
     const [displayedText, setDisplayedText] = useState('');
     const [isDeleting, setIsDeleting] = useState(false);
     const [textIndex, setTextIndex] = useState(0);
