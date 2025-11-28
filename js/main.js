@@ -107,8 +107,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.querySelector('.theme-toggle');
     const html = document.documentElement;
     const savedTheme = localStorage.getItem('theme') || 'dark';
+    const logo = document.getElementById('site-logo');
 
     html.setAttribute('data-theme', savedTheme);
+
+    // Set initial logo
+    if (logo) {
+        logo.src = savedTheme === 'dark' ? 'assets/images/logo.png' : 'assets/images/logo-light.png';
+    }
 
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
@@ -117,6 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             html.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
+
+            // Switch logo
+            if (logo) {
+                logo.src = newTheme === 'dark' ? 'assets/images/logo.png' : 'assets/images/logo-light.png';
+            }
         });
     }
     // Services Page Toggles
