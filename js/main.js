@@ -29,22 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 // Element enters viewport
                 entry.target.classList.add('visible');
-                entry.target.classList.remove('scrolled-past');
             } else {
-                // Element leaves viewport
-                if (entry.boundingClientRect.top < 0) {
-                    // Scrolled past (leaves to the top)
-                    entry.target.classList.add('scrolled-past');
-                    entry.target.classList.remove('visible');
-                } else {
-                    // Below viewport (waiting to enter)
-                    // Optional: remove visible if you want it to fade out when scrolling back up
-                    // entry.target.classList.remove('visible'); 
-                }
+                // Element leaves viewport - remove visible class to allow re-animation
+                entry.target.classList.remove('visible');
             }
         });
     }, {
-        threshold: 0.15, // Trigger slightly later
+        threshold: 0.15,
         rootMargin: "0px"
     });
 
@@ -130,49 +121,65 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    // Services Page Toggles
-    const currencyToggle = document.getElementById('currency-toggle');
+    // Services Page Pricing Logic
+    const currencySelect = document.getElementById('currency-select');
     const rateToggle = document.getElementById('rate-toggle');
+    const priceElements = document.querySelectorAll('.price-val');
 
-    if (currencyToggle && rateToggle) {
-        let currentCurrency = 'usd';
-        let currentRate = 'standard';
+    const exchangeRates = {
+        'USD': { rate: 1, symbol: '$' },
+        'EUR': { rate: 0.95, symbol: '€' },
+        'GBP': { rate: 0.79, symbol: '£' },
+        'CHF': { rate: 0.88, symbol: 'CHF ' },
+        'AUD': { rate: 1.54, symbol: 'A$' },
+        'CAD': { rate: 1.40, symbol: 'C$' },
+        'JPY': { rate: 151, symbol: '¥' },
+        'HKD': { rate: 7.78, symbol: 'HK$' },
+        'NZD': { rate: 1.70, symbol: 'NZ$' },
+        'INR': { rate: 84, symbol: '₹' },
+        'ZAR': { rate: 18, symbol: 'R ' },
+        'NGN': { rate: 1650, symbol: '₦' }
+    };
+
+    if (currencySelect && rateToggle) {
+        let currentCurrency = 'USD';
+        let currentRateType = 'standard'; // 'standard' or 'newbiz'
 
         function updatePrices() {
-            // Hide all prices first
-            document.querySelectorAll('.price-val').forEach(el => {
-                el.classList.add('hidden');
-            });
+            const currencyData = exchangeRates[currentCurrency];
+            const rateMultiplier = currentRateType === 'newbiz' ? 0.65 : 1; // 35% discount
 
-            // Show relevant prices
-            const selector = `.price-${currentCurrency}.price-${currentRate === 'standard' ? 'std' : 'biz'}`;
-            document.querySelectorAll(selector).forEach(el => {
-                el.classList.remove('hidden');
+            priceElements.forEach(el => {
+                const basePrice = parseFloat(el.dataset.basePrice);
+                if (!isNaN(basePrice)) {
+                    let finalPrice = basePrice * currencyData.rate * rateMultiplier;
+
+                    // Formatting
+                    let formattedPrice;
+                    // Round to whole numbers for currencies usually displayed that way
+                    if (['JPY', 'NGN', 'INR'].includes(currentCurrency)) {
+                        formattedPrice = Math.round(finalPrice).toLocaleString();
+                    } else {
+                        formattedPrice = finalPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    }
+
+                    el.textContent = `${currencyData.symbol}${formattedPrice}`;
+                }
             });
         }
 
-        // Currency Toggle
-        currencyToggle.querySelectorAll('.toggle-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Update active state
-                currencyToggle.querySelector('.active').classList.remove('active');
-                btn.classList.add('active');
-
-                // Update state and UI
-                currentCurrency = btn.dataset.value;
-                updatePrices();
-            });
+        // Currency Change
+        currencySelect.addEventListener('change', (e) => {
+            currentCurrency = e.target.value;
+            updatePrices();
         });
 
         // Rate Toggle
         rateToggle.querySelectorAll('.toggle-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                // Update active state
                 rateToggle.querySelector('.active').classList.remove('active');
                 btn.classList.add('active');
-
-                // Update state and UI
-                currentRate = btn.dataset.value;
+                currentRateType = btn.dataset.value;
                 updatePrices();
             });
         });
@@ -180,4 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Initialize
         updatePrices();
     }
+
+    // Duck animation removed
 });

@@ -28,62 +28,51 @@
                     <li class="nav__item"><a href="contact.html" class="nav__link">Contact</a></li>
                 </ul>
             </nav>
-            <button class="theme-toggle" aria-label="Toggle Dark/Light Mode">
-                <svg class="toggle-icon moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path
-                        d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z" />
-                </svg>
-                <svg class="toggle-icon sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path
-                        d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.29 1.29c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.29 1.29c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.29-1.29zm1.29-10.57l-1.29 1.29c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.29-1.29c.39-.39.39-1.02 0-1.41a.996.996 0 0 0-1.41 0zm-12.37 12.37l-1.29 1.29c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.29-1.29c.39-.39.39-1.02 0-1.41a.996.996 0 0 0-1.41 0z" />
-                </svg>
-            </button>
-            <button class="mobile-toggle" aria-label="Toggle navigation">
-                <span class="hamburger"></span>
-            </button>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <button class="theme-toggle" aria-label="Toggle Dark/Light Mode">
+                    <svg class="toggle-icon moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z" />
+                    </svg>
+                    <svg class="toggle-icon sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path
+                            d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.29 1.29c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.29 1.29c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.29-1.29zm1.29-10.57l-1.29 1.29c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.29-1.29c.39-.39.39-1.02 0-1.41a.996.996 0 0 0-1.41 0zm-12.37 12.37l-1.29 1.29c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.29-1.29c.39-.39.39-1.02 0-1.41a.996.996 0 0 0-1.41 0z" />
+                    </svg>
+                </button>
+                <button class="mobile-toggle" aria-label="Toggle navigation">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
         </div>
     </header>
 
     <main>
-        <section id="careers-hero" class="hero">
-            <div class="container hero__container">
-                <h1 class="hero__title">Join Our <span class="highlight">Vision</span></h1>
-                <p class="hero__subtitle">Help us build the digital infrastructure that defines the future.</p>
-            </div>
-        </section>
-
-        <section id="openings" class="reveal">
+        <!-- Page Hero -->
+        <section class="hero" style="min-height: 40vh; padding-bottom: 2rem;">
             <div class="container">
-                <div class="story-content">
-                    <h2 class="section__title">Current Openings</h2>
-                    <p class="section__subtitle">Be part of the legacy.</p>
-                    <div class="story-text" style="text-align: center; margin-top: var(--spacing-lg);">
-                        <p>We are currently not hiring for any specific roles.</p>
-                        <p>However, we are always looking for exceptional talent to join our network.</p>
-                        <a href="contact.html" class="btn btn--primary" style="margin-top: var(--spacing-md);">Connect
-                            With Us</a>
-                    </div>
+                <div class="hero__content" style="text-align: center; margin: 0 auto;">
+                    <h1 class="hero__title">Join Our <span class="highlight">Vision</span></h1>
+                    <a href="contact.html" class="btn btn-primary">Connect With Us</a>
                 </div>
             </div>
         </section>
 
-        <section id="culture" class="reveal">
+        <!-- Culture / Stats -->
+        <section id="culture" class="metrics-band reveal" style="margin-top: 4rem;">
             <div class="container">
-                <h2 class="section__title">Why VCS Hub?</h2>
-                <p class="section__subtitle">More than just a workplace.</p>
-
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Remote First</span>
+                <h2 class="section__title" style="color: white; font-size: 2rem; margin-bottom: 3rem;">Why VCS Hub?</h2>
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <h3 class="stat-number">100%</h3>
+                        <p>Remote First</p>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">∞</span>
-                        <span class="stat-label">Growth Potential</span>
+                    <div class="metric-item">
+                        <h3 class="stat-number">∞</h3>
+                        <p>Growth Potential</p>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">1</span>
-                        <span class="stat-label">Shared Vision</span>
+                    <div class="metric-item">
+                        <h3 class="stat-number">1</h3>
+                        <p>Shared Vision</p>
                     </div>
                 </div>
             </div>
@@ -92,24 +81,33 @@
 
     <footer class="footer reveal">
         <div class="container">
-            <div class="footer__grid">
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 4rem; margin-bottom: 4rem;">
                 <div class="footer__col">
                     <h4>The VCS Hub</h4>
-                    <p style="color: var(--color-text-muted);">Identity Architecture for the modern era.</p>
+                    <p class="footer__tagline">Identity Architecture for the Elite.</p>
                 </div>
                 <div class="footer__col">
                     <h4>Quick Links</h4>
                     <ul class="footer__links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="careers.html">Careers</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="index.html">Home</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="about.html">About</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="services.html">Services</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="careers.html">Careers</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4>Contact</h4>
+                    <ul class="footer__links">
+                        <li style="margin-bottom: 0.5rem;"><a href="mailto:thevcshub@gmail.com">thevcshub@gmail.com</a>
+                        </li>
+                        <li style="margin-bottom: 0.5rem;"><span>Global / Remote</span></li>
                     </ul>
                 </div>
                 <div class="footer__col">
                     <h4>Connect</h4>
-                    <div class="social-links footer__socials">
+                    <div class="social-links" style="display: flex; gap: 1rem;">
                         <a href="https://www.instagram.com/thevcshub/" target="_blank" aria-label="Instagram">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                                 <path fill="currentColor"
