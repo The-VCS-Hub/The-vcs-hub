@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
 
@@ -38,6 +39,31 @@ const PaperPlane = () => (
 );
 
 const Contact = () => {
+    const [status, setStatus] = useState(null);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setStatus('loading');
+
+        const formData = new FormData(e.target);
+
+        try {
+            const response = await fetch("https://formsubmit.co/ajax/thevcshub@gmail.com", {
+                method: "POST",
+                body: formData
+            });
+
+            if (response.ok) {
+                setStatus('success');
+                e.target.reset();
+            } else {
+                setStatus('error');
+            }
+        } catch (error) {
+            setStatus('error');
+        }
+    };
+
     return (
         <>
             {/* Page Hero */}
@@ -99,28 +125,48 @@ const Contact = () => {
 
                             {/* Contact Form */}
                             <div className="contact-form-card">
-                                <form action="https://formsubmit.co/thevcshub@gmail.com" method="POST">
-                                    <div style={{ marginBottom: '1.5rem' }}>
-                                        <label htmlFor="name" className="form-label">Name</label>
-                                        <input type="text" id="name" name="name" className="form-input" required placeholder="John Doe" />
+                                {status === 'success' ? (
+                                    <div style={{ textAlign: 'center', padding: '2rem' }}>
+                                        <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--color-primary)' }}>Message Sent!</h3>
+                                        <p style={{ color: 'var(--color-text-muted)' }}>Thank you for reaching out. We'll get back to you shortly.</p>
+                                        <button
+                                            onClick={() => setStatus(null)}
+                                            className="btn btn-primary"
+                                            style={{ marginTop: '1.5rem' }}
+                                        >
+                                            Send Another
+                                        </button>
                                     </div>
-                                    <div style={{ marginBottom: '1.5rem' }}>
-                                        <label htmlFor="email" className="form-label">Email</label>
-                                        <input type="email" id="email" name="email" className="form-input" required placeholder="john@example.com" />
-                                    </div>
-                                    <div style={{ marginBottom: '1.5rem' }}>
-                                        <label htmlFor="subject" className="form-label">Subject</label>
-                                        <input type="text" id="subject" name="subject" className="form-input" required placeholder="Project Inquiry" />
-                                    </div>
-                                    <div style={{ marginBottom: '1.5rem' }}>
-                                        <label htmlFor="message" className="form-label">Message</label>
-                                        <textarea id="message" name="message" className="form-textarea" rows="5" required
-                                            placeholder="Tell us about your project..."></textarea>
-                                    </div>
-                                    <input type="hidden" name="_next" value="https://thevcshub.netlify.app/contact.html" />
-                                    <input type="hidden" name="_subject" value="New Submission from The VCS Hub Website" />
-                                    <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Send Message</button>
-                                </form>
+                                ) : (
+                                    <form onSubmit={handleSubmit}>
+                                        <div style={{ marginBottom: '1.5rem' }}>
+                                            <label htmlFor="name" className="form-label">Name</label>
+                                            <input type="text" id="name" name="name" className="form-input" required placeholder="John Doe" />
+                                        </div>
+                                        <div style={{ marginBottom: '1.5rem' }}>
+                                            <label htmlFor="email" className="form-label">Email</label>
+                                            <input type="email" id="email" name="email" className="form-input" required placeholder="john@example.com" />
+                                        </div>
+                                        <div style={{ marginBottom: '1.5rem' }}>
+                                            <label htmlFor="subject" className="form-label">Subject</label>
+                                            <input type="text" id="subject" name="subject" className="form-input" required placeholder="Project Inquiry" />
+                                        </div>
+                                        <div style={{ marginBottom: '1.5rem' }}>
+                                            <label htmlFor="message" className="form-label">Message</label>
+                                            <textarea id="message" name="message" className="form-textarea" rows="5" required
+                                                placeholder="Tell us about your project..."></textarea>
+                                        </div>
+                                        <input type="hidden" name="_subject" value="New Submission from The VCS Hub Website" />
+                                        <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={status === 'loading'}>
+                                            {status === 'loading' ? 'Sending...' : 'Send Message'}
+                                        </button>
+                                        {status === 'error' && (
+                                            <p style={{ color: 'red', marginTop: '1rem', textAlign: 'center' }}>
+                                                Something went wrong. Please try again later.
+                                            </p>
+                                        )}
+                                    </form>
+                                )}
                             </div>
                         </div>
                     </ScrollReveal>
