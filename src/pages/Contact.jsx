@@ -1,4 +1,3 @@
-```
 import { motion } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
 
@@ -132,4 +131,3 @@ const Contact = () => {
 };
 
 export default Contact;
-```
