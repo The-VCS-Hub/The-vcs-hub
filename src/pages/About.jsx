@@ -1,11 +1,60 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
+import TypingText from '../components/TypingText';
+
+import Rocket from '../components/Rocket';
+
+const TeamMemberImage = ({ src, alt }) => {
+    return (
+        <motion.div
+            style={{
+                width: '100%',
+                height: '100%',
+                overflow: 'hidden',
+                borderRadius: '4px',
+                background: '#eee',
+                cursor: 'pointer'
+            }}
+            whileHover="hover"
+        >
+            <motion.img
+                src={src}
+                alt={alt}
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    filter: 'grayscale(100%)',
+                }}
+                variants={{
+                    hover: {
+                        filter: 'grayscale(0%)',
+                        scale: 1.1,
+                        rotate: [0, -2, 2, -1, 1, 0],
+                        y: [0, -5, 0],
+                        transition: {
+                            duration: 0.5,
+                            ease: "easeInOut"
+                        }
+                    }
+                }}
+            />
+        </motion.div>
+    );
+};
 
 const About = () => {
+    const introTexts = [
+        "We are an Identity Architecture firm engineering credibility for high-trust professionals.",
+        "We transform experience into influence through research, strategy, and design.",
+        "We build visibility systems for thought leaders and founder-led brands."
+    ];
+
     return (
         <>
             {/* Page Hero */}
-            <section className="hero" style={{ minHeight: '40vh', paddingBottom: '2rem' }}>
+            <section className="hero" style={{ minHeight: '30vh', paddingBottom: '1rem' }}>
                 <div className="container">
                     <div className="hero__content" style={{ textAlign: 'center', margin: '0 auto' }}>
                         <h1 className="hero__title">About <span className="highlight">The VCS Hub</span></h1>
@@ -14,31 +63,32 @@ const About = () => {
                 </div>
             </section>
 
-            <section id="about" style={{ paddingTop: 0 }}>
+            <section id="about" style={{ paddingTop: 0, position: 'relative', overflow: 'hidden' }}>
                 <div className="container">
                     {/* Intro */}
                     <ScrollReveal>
                         <div className="about-intro"
-                            style={{ maxWidth: '900px', margin: '0 auto 4rem', textAlign: 'center', fontSize: '1.25rem', lineHeight: 1.8 }}>
-                            <p>We are an Identity Architecture firm that engineers credibility and visibility for high-trust
-                                professionals, thought leaders, and founder-led brands. We transform experience into influence
-                                through a blend of research, strategy, design, and visibility systems.</p>
+                            style={{ maxWidth: '900px', margin: '3rem auto 2rem', textAlign: 'center', fontSize: '1.25rem', lineHeight: 1.8, minHeight: '80px' }}>
+                            <TypingText texts={introTexts} typingSpeed={30} pauseDuration={3000} />
                         </div>
                     </ScrollReveal>
 
                     {/* Vision & Mission */}
                     <ScrollReveal>
-                        <div className="grid-2"
-                            style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '4rem' }}>
-                            <div className="card" style={{ borderLeft: '4px solid var(--color-primary)' }}>
-                                <h3 className="card__title">Vision</h3>
-                                <p className="card__text">To help silent giants turn their expertise into visible authority that
-                                    opens doors, builds trust, and commands influence.</p>
-                            </div>
-                            <div className="card" style={{ borderLeft: '4px solid var(--color-primary)' }}>
-                                <h3 className="card__title">Mission</h3>
-                                <p className="card__text">To equip elite professionals and high-performing brands with the tools,
-                                    narratives, and systems to transition from invisible to influential.</p>
+                        <div style={{ position: 'relative' }}>
+                            <Rocket />
+                            <div className="grid-2"
+                                style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '4rem', position: 'relative', zIndex: 1 }}>
+                                <div className="card" style={{ borderLeft: '4px solid var(--color-primary)' }}>
+                                    <h3 className="card__title">Vision</h3>
+                                    <p className="card__text">To help silent giants turn their expertise into visible authority that
+                                        opens doors, builds trust, and commands influence.</p>
+                                </div>
+                                <div className="card" style={{ borderLeft: '4px solid var(--color-primary)' }}>
+                                    <h3 className="card__title">Mission</h3>
+                                    <p className="card__text">To equip elite professionals and high-performing brands with the tools,
+                                        narratives, and systems to transition from invisible to influential.</p>
+                                </div>
                             </div>
                         </div>
                     </ScrollReveal>
@@ -149,10 +199,8 @@ const About = () => {
                                 style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: '900px', margin: '0 auto' }}>
                                 {/* Chibuzor Nwachukwu */}
                                 <div className="card" style={{ textAlign: 'center' }}>
-                                    <div
-                                        style={{ width: '100%', aspectRatio: '1', overflow: 'hidden', borderRadius: '4px', marginBottom: '1.5rem', background: '#eee' }}>
-                                        <img src="/assets/images/chibuzor-nwachukwu.jpg" alt="Chibuzor Nwachukwu"
-                                            style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(100%)', transition: 'filter 0.3s' }} />
+                                    <div style={{ width: '100%', aspectRatio: '1', marginBottom: '1.5rem' }}>
+                                        <TeamMemberImage src="/assets/images/chibuzor-nwachukwu.jpg" alt="Chibuzor Nwachukwu" />
                                     </div>
                                     <h4 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Chibuzor Nwachukwu</h4>
                                     <p style={{ color: 'var(--color-primary)', fontWeight: 600, marginBottom: '1rem' }}>Co-Founder &
@@ -184,10 +232,8 @@ const About = () => {
                                 </div>
                                 {/* Freda Efod */}
                                 <div className="card" style={{ textAlign: 'center' }}>
-                                    <div
-                                        style={{ width: '100%', aspectRatio: '1', overflow: 'hidden', borderRadius: '4px', marginBottom: '1.5rem', background: '#eee' }}>
-                                        <img src="/assets/images/freda-efod.png" alt="Freda Efod"
-                                            style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(100%)', transition: 'filter 0.3s' }} />
+                                    <div style={{ width: '100%', aspectRatio: '1', marginBottom: '1.5rem' }}>
+                                        <TeamMemberImage src="/assets/images/freda-efod.png" alt="Freda Efod" />
                                     </div>
                                     <h4 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Freda Efod</h4>
                                     <p style={{ color: 'var(--color-primary)', fontWeight: 600, marginBottom: '1rem' }}>Co-Founder &

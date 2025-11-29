@@ -1,5 +1,36 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
+
+const Ghost = () => (
+    <motion.svg
+        width="100"
+        height="100"
+        viewBox="0 0 100 100"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        animate={{ y: [0, -15, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        style={{ margin: '0 auto 1.5rem', display: 'block' }}
+    >
+        <path
+            d="M50 10C30 10 15 25 15 45V90L25 80L35 90L45 80L50 85L55 80L65 90L75 80L85 90V45C85 25 70 10 50 10Z"
+            fill="var(--color-bg-alt)"
+            stroke="var(--color-primary)"
+            strokeWidth="2"
+        />
+        <circle cx="35" cy="40" r="3" fill="var(--color-text-main)" />
+        <circle cx="65" cy="40" r="3" fill="var(--color-text-main)" />
+        <motion.path
+            d="M40 55Q50 65 60 55"
+            stroke="var(--color-text-main)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            animate={{ d: ["M40 55Q50 65 60 55", "M40 55Q50 50 60 55", "M40 55Q50 65 60 55"] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+    </motion.svg>
+);
 
 const Careers = () => {
     return (
@@ -19,9 +50,11 @@ const Careers = () => {
                 <div className="container">
                     <ScrollReveal>
                         <div className="card" style={{ maxWidth: '800px', margin: '0 auto', padding: '3rem' }}>
+                            <Ghost />
                             <h2 style={{ marginBottom: '1.5rem', color: 'var(--color-text-main)' }}>Current Openings</h2>
                             <p style={{ fontSize: '1.1rem', color: 'var(--color-text-muted)', marginBottom: '2rem' }}>
-                                There are no current openings at this time.
+                                It's a bit of a ghost town here right now... <br />
+                                <span style={{ fontSize: '0.9rem', fontStyle: 'italic' }}>(No open positions)</span>
                             </p>
                             <p style={{ color: 'var(--color-text-muted)' }}>
                                 However, we are always looking for exceptional talent. Feel free to send your portfolio to

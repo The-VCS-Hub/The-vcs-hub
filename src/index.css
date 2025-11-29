@@ -1,9 +1,9 @@
 :root {
     /* Enterprise Color Palette */
-    /* Primary: Deep Navy (Authority/Trust) */
-    --color-primary: #002D62;
-    /* Secondary: Champagne Gold (Premium Accent - Retained from brand) */
-    --color-accent: #D4C5A8;
+    /* Primary: Deep Purple (Authority/Trust) */
+    --color-primary: #271B2C;
+    /* Secondary: Cream (Premium Accent) */
+    --color-accent: #ECE4DF;
     /* Neutral: Rich Black (Text) */
     --color-text-main: #111111;
     /* Neutral: Dark Gray (Subtext) */
@@ -25,8 +25,10 @@
     --spacing-xl: clamp(4rem, 10vw, 8rem);
 
     /* Typography */
-    --font-heading: 'Outfit', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --font-heading: 'Outfit',
+        sans-serif;
+    --font-body: 'Inter',
+        sans-serif;
 
     /* Shadows */
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);

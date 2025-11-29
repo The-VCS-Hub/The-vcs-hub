@@ -1,9 +1,157 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from '../components/ScrollReveal';
+import TypingText from '../components/TypingText';
+
+import Blueprint from '../components/Blueprint';
+
+const Toggle = ({ value, onChange, options }) => {
+    return (
+        <div className="toggle-switch" style={{ position: 'relative', display: 'inline-flex', background: 'var(--color-bg-alt)', padding: '4px', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
+            {options.map((option) => (
+                <button
+                    key={option.value}
+                    onClick={() => onChange(option.value)}
+                    style={{
+                        position: 'relative',
+                        zIndex: 1,
+                        background: 'transparent',
+                        border: 'none',
+                        padding: '8px 16px',
+                        fontSize: '0.9rem',
+                        fontWeight: value === option.value ? 600 : 500,
+                        color: value === option.value ? 'var(--color-primary)' : 'var(--color-text-muted)',
+                        cursor: 'pointer',
+                        transition: 'color 0.2s',
+                        whiteSpace: 'nowrap'
+                    }}
+                >
+                    {value === option.value && (
+                        <motion.div
+                            layoutId="active-toggle"
+                            style={{
+                                position: 'absolute',
+                                inset: 0,
+                                background: 'var(--color-bg-card)',
+                                borderRadius: '6px',
+                                boxShadow: '0 2px 4px rgba(0,0,0,0.08)',
+                                zIndex: -1,
+                            }}
+                            transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                        />
+                    )}
+                    {option.label}
+                </button>
+            ))}
+        </div>
+    );
+};
+
+const CurrencyDropdown = ({ value, onChange, options }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <div style={{ position: 'relative', minWidth: '140px' }}>
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                style={{
+                    width: '100%',
+                    padding: '10px 16px',
+                    background: 'var(--color-bg-card)',
+                    border: '1px solid var(--color-border)',
+                    borderRadius: '8px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    cursor: 'pointer',
+                    color: 'var(--color-text-main)',
+                    fontSize: '0.9rem',
+                    fontWeight: 500
+                }}
+            >
+                {options.find(opt => opt.value === value)?.label}
+                <motion.svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                >
+                    <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </motion.svg>
+            </button>
+
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.ul
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        style={{
+                            position: 'absolute',
+                            top: '120%',
+                            left: 0,
+                            width: '100%',
+                            background: 'var(--color-bg-card)',
+                            border: '1px solid var(--color-border)',
+                            borderRadius: '8px',
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                            zIndex: 10,
+                            maxHeight: '300px',
+                            overflowY: 'auto',
+                            listStyle: 'none',
+                            padding: '4px'
+                        }}
+                    >
+                        {options.map((option) => (
+                            <li key={option.value}>
+                                <button
+                                    onClick={() => {
+                                        onChange(option.value);
+                                        setIsOpen(false);
+                                    }}
+                                    style={{
+                                        width: '100%',
+                                        textAlign: 'left',
+                                        padding: '8px 12px',
+                                        background: value === option.value ? 'var(--color-bg-alt)' : 'transparent',
+                                        border: 'none',
+                                        borderRadius: '4px',
+                                        cursor: 'pointer',
+                                        color: value === option.value ? 'var(--color-primary)' : 'var(--color-text-main)',
+                                        fontSize: '0.9rem',
+                                        fontWeight: value === option.value ? 600 : 400,
+                                        transition: 'background 0.2s'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        if (value !== option.value) e.target.style.background = 'var(--color-bg-alt)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        if (value !== option.value) e.target.style.background = 'transparent';
+                                    }}
+                                >
+                                    {option.label}
+                                </button>
+                            </li>
+                        ))}
+                    </motion.ul>
+                )}
+            </AnimatePresence>
+        </div>
+    );
+};
 
 const Services = () => {
     const [currency, setCurrency] = useState('USD');
     const [rateType, setRateType] = useState('standard'); // 'standard' or 'newbiz'
+
+    const heroTexts = [
+        "Comprehensive digital solutions tailored for enterprise growth.",
+        "Strategic design that commands authority.",
+        "Premium content creation for high-impact brands."
+    ];
 
     const exchangeRates = {
         'USD': { rate: 1, symbol: '$' },
@@ -20,6 +168,21 @@ const Services = () => {
         'NGN': { rate: 1650, symbol: '₦' }
     };
 
+    const currencyOptions = [
+        { value: "USD", label: "USD ($)" },
+        { value: "NGN", label: "NGN (₦)" },
+        { value: "GBP", label: "GBP (£)" },
+        { value: "EUR", label: "EUR (€)" },
+        { value: "CHF", label: "CHF (CHF)" },
+        { value: "AUD", label: "AUD (A$)" },
+        { value: "CAD", label: "CAD (C$)" },
+        { value: "JPY", label: "JPY (¥)" },
+        { value: "HKD", label: "HKD (HK$)" },
+        { value: "NZD", label: "NZD (NZ$)" },
+        { value: "INR", label: "INR (₹)" },
+        { value: "ZAR", label: "ZAR (R)" }
+    ];
+
     const calculatePrice = (basePrice) => {
         const currencyData = exchangeRates[currency];
         const rateMultiplier = rateType === 'newbiz' ? 0.65 : 1; // 35% discount
@@ -34,6 +197,27 @@ const Services = () => {
 
     const getSymbol = () => exchangeRates[currency].symbol;
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.5
+            }
+        }
+    };
+
     return (
         <>
             {/* Page Hero */}
@@ -41,12 +225,14 @@ const Services = () => {
                 <div className="container">
                     <div className="hero__content" style={{ textAlign: 'center', margin: '0 auto' }}>
                         <h1 className="hero__title">Our <span className="highlight">Services</span></h1>
-                        <p className="hero__subtitle">Comprehensive digital solutions tailored for enterprise growth.</p>
+                        <div className="hero__subtitle" style={{ minHeight: '3.2em' }}>
+                            <TypingText texts={heroTexts} />
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section id="services" style={{ paddingTop: 0 }}>
+            <section id="services" style={{ paddingTop: 0, position: 'relative', overflow: 'hidden' }}>
                 <div className="container">
                     {/* Controls */}
                     <ScrollReveal>
@@ -55,53 +241,40 @@ const Services = () => {
                             <div className="toggle-group">
                                 <span className="toggle-label"
                                     style={{ fontWeight: 600, color: 'var(--color-text-main)' }}>Currency:</span>
-                                <div className="select-wrapper">
-                                    <select
-                                        id="currency-select"
-                                        className="currency-select"
-                                        value={currency}
-                                        onChange={(e) => setCurrency(e.target.value)}
-                                        style={{ background: 'white', border: '1px solid var(--color-border)', color: 'var(--color-text-main)', padding: '0.5rem', borderRadius: '4px' }}>
-                                        <option value="USD">USD ($)</option>
-                                        <option value="NGN">NGN (₦)</option>
-                                        <option value="GBP">GBP (£)</option>
-                                        <option value="EUR">EUR (€)</option>
-                                        <option value="CHF">CHF (CHF)</option>
-                                        <option value="AUD">AUD (A$)</option>
-                                        <option value="CAD">CAD (C$)</option>
-                                        <option value="JPY">JPY (¥)</option>
-                                        <option value="HKD">HKD (HK$)</option>
-                                        <option value="NZD">NZD (NZ$)</option>
-                                        <option value="INR">INR (₹)</option>
-                                        <option value="ZAR">ZAR (R)</option>
-                                    </select>
-                                </div>
+                                <CurrencyDropdown
+                                    value={currency}
+                                    onChange={setCurrency}
+                                    options={currencyOptions}
+                                />
                             </div>
 
                             <div className="toggle-group" id="rate-toggle">
                                 <span className="toggle-label" style={{ fontWeight: 600, color: 'var(--color-text-main)' }}>Rate:</span>
-                                <div className="toggle-switch"
-                                    style={{ background: 'var(--color-bg-alt)', border: '1px solid var(--color-border)' }}>
-                                    <button
-                                        className={`toggle-btn ${rateType === 'standard' ? 'active' : ''}`}
-                                        onClick={() => setRateType('standard')}>
-                                        Standard
-                                    </button>
-                                    <button
-                                        className={`toggle-btn ${rateType === 'newbiz' ? 'active' : ''}`}
-                                        onClick={() => setRateType('newbiz')}>
-                                        New Biz (-35%)
-                                    </button>
-                                </div>
+                                <Toggle
+                                    value={rateType}
+                                    onChange={setRateType}
+                                    options={[
+                                        { value: 'standard', label: 'Standard' },
+                                        { value: 'newbiz', label: 'New Biz (-35%)' }
+                                    ]}
+                                />
                             </div>
                         </div>
                     </ScrollReveal>
 
                     {/* Pricing Grid */}
-                    <div className="grid-3">
-                        {/* 1. Visual Identity */}
-                        <ScrollReveal>
-                            <div className="card">
+                    <div style={{ position: 'relative' }}>
+                        <Blueprint />
+                        <motion.div
+                            className="grid-3"
+                            variants={containerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, margin: "-50px" }}
+                            style={{ position: 'relative', zIndex: 1 }}
+                        >
+                            {/* 1. Visual Identity */}
+                            <motion.div className="card" variants={itemVariants}>
                                 <h3 className="card__title"
                                     style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
                                     Visual Identity</h3>
@@ -126,12 +299,10 @@ const Services = () => {
                                         </div>
                                     </li>
                                 </ul>
-                            </div>
-                        </ScrollReveal>
+                            </motion.div>
 
-                        {/* 2. Content Creation */}
-                        <ScrollReveal>
-                            <div className="card">
+                            {/* 2. Content Creation */}
+                            <motion.div className="card" variants={itemVariants}>
                                 <h3 className="card__title"
                                     style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
                                     Content Creation</h3>
@@ -157,12 +328,10 @@ const Services = () => {
                                         </div>
                                     </li>
                                 </ul>
-                            </div>
-                        </ScrollReveal>
+                            </motion.div>
 
-                        {/* 3. Video Editing */}
-                        <ScrollReveal>
-                            <div className="card">
+                            {/* 3. Video Editing */}
+                            <motion.div className="card" variants={itemVariants}>
                                 <h3 className="card__title"
                                     style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
                                     Video Editing</h3>
@@ -189,12 +358,10 @@ const Services = () => {
                                         </div>
                                     </li>
                                 </ul>
-                            </div>
-                        </ScrollReveal>
+                            </motion.div>
 
-                        {/* 4. Voice-Over Services */}
-                        <ScrollReveal>
-                            <div className="card">
+                            {/* 4. Voice-Over Services */}
+                            <motion.div className="card" variants={itemVariants}>
                                 <h3 className="card__title"
                                     style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: '1rem', marginBottom: '1.5rem' }}>
                                     Voice-Over</h3>
@@ -221,12 +388,10 @@ const Services = () => {
                                         </div>
                                     </li>
                                 </ul>
-                            </div>
-                        </ScrollReveal>
+                            </motion.div>
 
-                        {/* 5. Starter Retainers */}
-                        <ScrollReveal>
-                            <div className="card" style={{ borderColor: 'var(--color-primary)', background: 'var(--color-bg-alt)' }}>
+                            {/* 5. Starter Retainers */}
+                            <motion.div className="card" variants={itemVariants} style={{ borderColor: 'var(--color-primary)', background: 'var(--color-bg-alt)' }}>
                                 <h3 className="card__title"
                                     style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: '1rem', marginBottom: '1.5rem', color: 'var(--color-primary)' }}>
                                     Starter Retainers</h3>
@@ -239,8 +404,8 @@ const Services = () => {
                                         </div>
                                     </li>
                                 </ul>
-                            </div>
-                        </ScrollReveal>
+                            </motion.div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
