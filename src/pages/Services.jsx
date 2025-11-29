@@ -47,101 +47,7 @@ const Toggle = ({ value, onChange, options }) => {
     );
 };
 
-const CurrencyDropdown = ({ value, onChange, options }) => {
-    const [isOpen, setIsOpen] = useState(false);
 
-    return (
-        <div style={{ position: 'relative', minWidth: '140px' }}>
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                style={{
-                    width: '100%',
-                    padding: '10px 16px',
-                    background: 'var(--color-bg-card)',
-                    border: '1px solid var(--color-border)',
-                    borderRadius: '8px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    cursor: 'pointer',
-                    color: 'var(--color-text-main)',
-                    fontSize: '0.9rem',
-                    fontWeight: 500
-                }}
-            >
-                {options.find(opt => opt.value === value)?.label}
-                <motion.svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
-                >
-                    <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </motion.svg>
-            </button>
-
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.ul
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.2 }}
-                        style={{
-                            position: 'absolute',
-                            top: '120%',
-                            left: 0,
-                            width: '100%',
-                            background: 'var(--color-bg-card)',
-                            border: '1px solid var(--color-border)',
-                            borderRadius: '8px',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                            zIndex: 10,
-                            maxHeight: '300px',
-                            overflowY: 'auto',
-                            listStyle: 'none',
-                            padding: '4px'
-                        }}
-                    >
-                        {options.map((option) => (
-                            <li key={option.value}>
-                                <button
-                                    onClick={() => {
-                                        onChange(option.value);
-                                        setIsOpen(false);
-                                    }}
-                                    style={{
-                                        width: '100%',
-                                        textAlign: 'left',
-                                        padding: '8px 12px',
-                                        background: value === option.value ? 'var(--color-bg-alt)' : 'transparent',
-                                        border: 'none',
-                                        borderRadius: '4px',
-                                        cursor: 'pointer',
-                                        color: value === option.value ? 'var(--color-primary)' : 'var(--color-text-main)',
-                                        fontSize: '0.9rem',
-                                        fontWeight: value === option.value ? 600 : 400,
-                                        transition: 'background 0.2s'
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        if (value !== option.value) e.target.style.background = 'var(--color-bg-alt)';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        if (value !== option.value) e.target.style.background = 'transparent';
-                                    }}
-                                >
-                                    {option.label}
-                                </button>
-                            </li>
-                        ))}
-                    </motion.ul>
-                )}
-            </AnimatePresence>
-        </div>
-    );
-};
 
 const Services = () => {
     const [currency, setCurrency] = useState('USD');
@@ -169,18 +75,10 @@ const Services = () => {
     };
 
     const currencyOptions = [
-        { value: "USD", label: "USD ($)" },
         { value: "NGN", label: "NGN (₦)" },
+        { value: "USD", label: "USD ($)" },
         { value: "GBP", label: "GBP (£)" },
-        { value: "EUR", label: "EUR (€)" },
-        { value: "CHF", label: "CHF (CHF)" },
-        { value: "AUD", label: "AUD (A$)" },
-        { value: "CAD", label: "CAD (C$)" },
-        { value: "JPY", label: "JPY (¥)" },
-        { value: "HKD", label: "HKD (HK$)" },
-        { value: "NZD", label: "NZD (NZ$)" },
-        { value: "INR", label: "INR (₹)" },
-        { value: "ZAR", label: "ZAR (R)" }
+        { value: "EUR", label: "EUR (€)" }
     ];
 
     const calculatePrice = (basePrice) => {
@@ -241,7 +139,7 @@ const Services = () => {
                             <div className="toggle-group">
                                 <span className="toggle-label"
                                     style={{ fontWeight: 600, color: 'var(--color-text-main)' }}>Currency:</span>
-                                <CurrencyDropdown
+                                <Toggle
                                     value={currency}
                                     onChange={setCurrency}
                                     options={currencyOptions}
